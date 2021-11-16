@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "",
-    "build": "webpack --config ./build/base.js"
+    "build": "cross-env NODE_ENV=production webpack --config ./build/base.js"
   },
   "repository": {
     "type": "git",
@@ -20,12 +20,22 @@
   },
   "homepage": "https://github.com/zeroone001/webpack4-demo#readme",
   "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/plugin-transform-runtime": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^0.1.19",
+    "compression-webpack-plugin": "^1.1.12",
+    "cross-env": "^7.0.3",
+    "mini-css-extract-plugin": "^0.8.2",
     "webpack": "^4.46.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.2",
     "yargs": "^13.3.2"
   },
   "dependencies": {
+    "@babel/runtime": "^7.16.3",
+    "@babel/runtime-corejs3": "^7.16.3",
     "glob": "^7.1.7"
   }
 }
