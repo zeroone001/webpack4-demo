@@ -21,7 +21,6 @@
 * babel
 * eslint
 
-
 #### 安装
 
 ```shell
@@ -35,38 +34,35 @@ npm install webpack-merge webpack-manifest-plugin --save-dev
 npm i yargs@13 --save-dev
 ```
 
-### clean-webpack-plugin
+### Setup
 
-`npm i clean-webpack-plugin@^0.1.19 -D`
+```
+npm i cross-env -D
+cross-env NODE_ENV=production
 
-```js
+npm i clean-webpack-plugin@^0.1.19 -D
 // 打包前删除dist文件夹
 new CleanWebpackPlugin(['dist'], {
     root: path.resolve(__dirname, '../'),
     verbose: false, // 输出log到控制台
     dry: false // 模拟删除
 }),
+
+npm i html-webpack-plugin@^3.2.0 -D
+
+npm i vue-loader@^15.7.1 -D
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+
+npm i mini-css-extract-plugin@^0.8.0 -D
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+
+npm i compression-webpack-plugin@2 -D
+const CompressionPlugin = require("compression-webpack-plugin");
+
+npm i progress-bar-webpack-plugin@^1.12.1 -D
+
+
 ```
-
-### compression-webpack-plugin
-
-`npm i compression-webpack-plugin@2 -D`
-
-
-### cross-env
-
-`npm i cross-env -D`
-
-
-### mini-css-extract-plugin
-
-`npm i mini-css-extract-plugin@^0.8.0 -D`
-
-### Setup
-
-1. entry
-
-2. output
 
 
 ### webpack.UglifyjsWebpackPlugin

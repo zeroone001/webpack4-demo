@@ -4,11 +4,14 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CompressionPlugin = require("compression-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const ProgressBarWebpackPlugin = require('progress-bar-webpack-plugin');
 // console.log('glob', glob);
 const resolvePath = (dir) => {
     return path.resolve(__dirname, '../', dir);
 };
-module.exports = {
+const baseConfig = {
     mode: 'production',
     /* 
         多页应用
@@ -68,6 +71,7 @@ module.exports = {
         ]
     },
     plugins: [
+        new ProgressBarWebpackPlugin(), // 编译时展示一个进度条
         new CompressionPlugin({
             filename: '[path].gz[query]',
             algorithm: 'gzip',
@@ -81,8 +85,23 @@ module.exports = {
             verbose: false, // 输出log到控制台
             dry: false // 模拟删除
         }),
+        // Vue Loader 是一个 webpack 的 loader，它允许你以一种名为单文件组件 (SFCs)的格式撰写 Vue 组件 (https://vue-loader.vuejs.org)
+        new VueLoaderPlugin(), 
     ]
     /* 
     
     */
 }
+
+let pages = Object.keys(config.entries);
+pages.forEach(item => {
+    if (item.indexOf('\/commons\/') === -1) {
+        baseConfig.plugins.push(new HtmlWebpackPlugin({
+            filename: resolvePath(`dist/${item}.html`),
+            template: resolvePath(`src/pages/${item}.ejs`),
+            chunks: ['manifest', 'vendor', item]
+        }));
+    }
+});
+
+module.exports = baseConfig;
